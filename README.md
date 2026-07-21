@@ -1,4 +1,4 @@
-# Stop prompting. Start building loops.
+# Stop prompting. Start building loops. (WIP)
 
 **The highest-leverage engineers stopped writing prompts. They write the _loop_ the model runs inside, then let it decide what to do next.**
 
