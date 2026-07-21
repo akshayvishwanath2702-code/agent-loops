@@ -4,3 +4,6 @@ figures/list.txt
 figures/_smoke*
 publishing/
 .DS_Store
+__pycache__/
+*.pyc
+songcraft/.venv/

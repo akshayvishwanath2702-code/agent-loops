@@ -1,0 +1,6 @@
+# tested with Python 3.11
+numpy>=1.24
+scipy>=1.11
+pyloudnorm>=0.1.1
+pedalboard>=0.9
+soundfile>=0.12

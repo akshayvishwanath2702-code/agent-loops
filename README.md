@@ -69,6 +69,15 @@ Now point it at an aggressive loudness target the material cannot hit cleanly (`
 
 > ▶ **[Run both scenarios yourself in the live version.](https://akshayvishwanath2702-code.github.io/agent-loops/)**
 
+This example is not a mock. The real, runnable version lives in **[`songcraft/`](./songcraft/)**: an auto-mastering engine written as an agent loop with real DSP (`pedalboard`) and a real ITU-R BS.1770 loudness meter (`pyloudnorm`). It ships two sample mixes (a vocal and a guitar), and the captured runs above are its actual output.
+
+```bash
+cd songcraft && pip install -r requirements.txt
+python make_samples.py
+python master_loop.py --in samples/vocal_mix.wav          # converges to -14 LUFS
+python master_loop.py --in samples/guitar_mix.wav --target -9   # impossible -> halts
+```
+
 ---
 
 ## Where the engineering actually lives.

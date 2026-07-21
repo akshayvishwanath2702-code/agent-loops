@@ -1,0 +1,36 @@
+loop  goal: master to -14 LUFS   tools: eq, comp, limiter, deess   verify: loudness meter   file: guitar_mix.wav
+──────────────────────────────────────────────────────────────────────────────
+pass  0  OBSERVE -12.7 LUFS · peak -8.2 dBTP · balance 59% · crest 7.3 dB
+pass  0  DECIDE  back off 1.0 dB, crest too low
+pass  0  VERIFY  -13.7 LUFS · peak -9.2 dBTP · balance 59% · crest 7.3 dB
+pass  1  OBSERVE -13.7 LUFS · peak -9.2 dBTP · balance 59% · crest 7.3 dB
+pass  1  DECIDE  back off 1.0 dB, crest too low
+pass  1  VERIFY  -14.7 LUFS · peak -10.2 dBTP · balance 59% · crest 7.3 dB
+pass  2  OBSERVE -14.7 LUFS · peak -10.2 dBTP · balance 59% · crest 7.3 dB
+pass  2  DECIDE  low shelf -3.0 dB @ 120 Hz, tame boom
+pass  2  VERIFY  -15.0 LUFS · peak -8.6 dBTP · balance 70% · crest 9.9 dB
+pass  3  OBSERVE -15.0 LUFS · peak -8.6 dBTP · balance 70% · crest 9.9 dB
+pass  3  DECIDE  low shelf -3.0 dB @ 120 Hz, tame boom
+pass  3  VERIFY  -15.2 LUFS · peak -7.2 dBTP · balance 73% · crest 11.6 dB
+pass  4  OBSERVE -15.2 LUFS · peak -7.2 dBTP · balance 73% · crest 11.6 dB
+pass  4  DECIDE  high shelf +3.5 dB @ 9 kHz, add air
+pass  4  VERIFY  -15.2 LUFS · peak -6.3 dBTP · balance 73% · crest 12.8 dB
+pass  5  OBSERVE -15.2 LUFS · peak -6.3 dBTP · balance 73% · crest 12.8 dB
+pass  5  DECIDE  high shelf +3.5 dB @ 9 kHz, add air
+pass  5  VERIFY  -15.2 LUFS · peak -5.0 dBTP · balance 74% · crest 14.2 dB
+pass  6  OBSERVE -15.2 LUFS · peak -5.0 dBTP · balance 74% · crest 14.2 dB
+pass  6  DECIDE  glue compressor 2:1, add density
+pass  6  VERIFY  -17.4 LUFS · peak -5.5 dBTP · balance 74% · crest 15.9 dB
+pass  7  OBSERVE -17.4 LUFS · peak -5.5 dBTP · balance 74% · crest 15.9 dB
+pass  7  DECIDE  limiter, push +3.0 dB toward -14 LUFS
+pass  7  VERIFY   -8.8 LUFS · peak  0.4 dBTP · balance 74% · crest 13.0 dB
+pass  8  OBSERVE  -8.8 LUFS · peak  0.4 dBTP · balance 74% · crest 13.0 dB
+pass  8  DECIDE  trim -1.7 dB, peaks over ceiling
+pass  8  VERIFY  -10.5 LUFS · peak -1.3 dBTP · balance 74% · crest 13.0 dB
+pass  9  OBSERVE -10.5 LUFS · peak -1.3 dBTP · balance 74% · crest 13.0 dB
+pass  9  DECIDE  trim -3.5 dB to target
+pass  9  VERIFY  -14.0 LUFS · peak -4.8 dBTP · balance 74% · crest 13.0 dB
+pass 10  OBSERVE -14.0 LUFS · peak -4.8 dBTP · balance 74% · crest 13.0 dB
+pass 10  GATE    all targets within tolerance ✓
+──────────────────────────────────────────────────────────────────────────────
+✓ MASTERED in 10 moves · -14.0 LUFS · -4.8 dBTP · balance 74% · crest 13.0 dB   -> out/guitar_mix_mastered_14.wav

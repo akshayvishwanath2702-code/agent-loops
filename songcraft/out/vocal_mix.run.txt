@@ -1,0 +1,30 @@
+loop  goal: master to -14 LUFS   tools: eq, comp, limiter, deess   verify: loudness meter   file: vocal_mix.wav
+──────────────────────────────────────────────────────────────────────────────
+pass  0  OBSERVE -24.1 LUFS · peak -10.5 dBTP · balance 84% · crest 17.6 dB
+pass  0  DECIDE  low shelf -3.0 dB @ 120 Hz, tame boom
+pass  0  VERIFY  -24.2 LUFS · peak -10.5 dBTP · balance 86% · crest 17.6 dB
+pass  1  OBSERVE -24.2 LUFS · peak -10.5 dBTP · balance 86% · crest 17.6 dB
+pass  1  DECIDE  low shelf -3.0 dB @ 120 Hz, tame boom
+pass  1  VERIFY  -24.4 LUFS · peak -10.3 dBTP · balance 89% · crest 17.8 dB
+pass  2  OBSERVE -24.4 LUFS · peak -10.3 dBTP · balance 89% · crest 17.8 dB
+pass  2  DECIDE  glue compressor 2:1, add density
+pass  2  VERIFY  -24.4 LUFS · peak -10.3 dBTP · balance 89% · crest 17.8 dB
+pass  3  OBSERVE -24.4 LUFS · peak -10.3 dBTP · balance 89% · crest 17.8 dB
+pass  3  DECIDE  limiter, push +3.0 dB toward -14 LUFS
+pass  3  VERIFY  -15.6 LUFS · peak -1.6 dBTP · balance 89% · crest 17.8 dB
+pass  4  OBSERVE -15.6 LUFS · peak -1.6 dBTP · balance 89% · crest 17.8 dB
+pass  4  DECIDE  limiter, push +1.6 dB toward -14 LUFS
+pass  4  VERIFY   -9.7 LUFS · peak  2.0 dBTP · balance 83% · crest 13.3 dB
+pass  5  OBSERVE  -9.7 LUFS · peak  2.0 dBTP · balance 83% · crest 13.3 dB
+pass  5  DECIDE  trim -3.3 dB, peaks over ceiling
+pass  5  VERIFY  -13.0 LUFS · peak -1.3 dBTP · balance 83% · crest 13.3 dB
+pass  6  OBSERVE -13.0 LUFS · peak -1.3 dBTP · balance 83% · crest 13.3 dB
+pass  6  DECIDE  high shelf +3.5 dB @ 9 kHz, add air
+pass  6  VERIFY  -12.4 LUFS · peak  0.6 dBTP · balance 89% · crest 15.9 dB
+pass  7  OBSERVE -12.4 LUFS · peak  0.6 dBTP · balance 89% · crest 15.9 dB
+pass  7  DECIDE  trim -1.9 dB, peaks over ceiling
+pass  7  VERIFY  -14.2 LUFS · peak -1.3 dBTP · balance 89% · crest 15.9 dB
+pass  8  OBSERVE -14.2 LUFS · peak -1.3 dBTP · balance 89% · crest 15.9 dB
+pass  8  GATE    all targets within tolerance ✓
+──────────────────────────────────────────────────────────────────────────────
+✓ MASTERED in 8 moves · -14.2 LUFS · -1.3 dBTP · balance 89% · crest 15.9 dB   -> out/vocal_mix_mastered_14.wav

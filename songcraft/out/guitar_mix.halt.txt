@@ -1,0 +1,53 @@
+loop  goal: master to -9 LUFS   tools: eq, comp, limiter, deess   verify: loudness meter   file: guitar_mix.wav
+──────────────────────────────────────────────────────────────────────────────
+pass  0  OBSERVE -12.7 LUFS · peak -8.2 dBTP · balance 59% · crest 7.3 dB
+pass  0  DECIDE  low shelf -3.0 dB @ 120 Hz, tame boom
+pass  0  VERIFY  -13.0 LUFS · peak -6.6 dBTP · balance 70% · crest 9.9 dB
+pass  1  OBSERVE -13.0 LUFS · peak -6.6 dBTP · balance 70% · crest 9.9 dB
+pass  1  DECIDE  low shelf -3.0 dB @ 120 Hz, tame boom
+pass  1  VERIFY  -13.2 LUFS · peak -5.2 dBTP · balance 73% · crest 11.6 dB
+pass  2  OBSERVE -13.2 LUFS · peak -5.2 dBTP · balance 73% · crest 11.6 dB
+pass  2  DECIDE  high shelf +3.5 dB @ 9 kHz, add air
+pass  2  VERIFY  -13.2 LUFS · peak -4.3 dBTP · balance 73% · crest 12.8 dB
+pass  3  OBSERVE -13.2 LUFS · peak -4.3 dBTP · balance 73% · crest 12.8 dB
+pass  3  DECIDE  high shelf +3.5 dB @ 9 kHz, add air
+pass  3  VERIFY  -13.2 LUFS · peak -3.0 dBTP · balance 74% · crest 14.2 dB
+pass  4  OBSERVE -13.2 LUFS · peak -3.0 dBTP · balance 74% · crest 14.2 dB
+pass  4  DECIDE  glue compressor 2:1, add density
+pass  4  VERIFY  -16.6 LUFS · peak -4.5 dBTP · balance 74% · crest 15.8 dB
+pass  5  OBSERVE -16.6 LUFS · peak -4.5 dBTP · balance 74% · crest 15.8 dB
+pass  5  DECIDE  limiter, push +3.0 dB toward -9 LUFS
+pass  5  VERIFY   -8.5 LUFS · peak  0.5 dBTP · balance 74% · crest 12.3 dB
+pass  6  OBSERVE  -8.5 LUFS · peak  0.5 dBTP · balance 74% · crest 12.3 dB
+pass  6  DECIDE  trim -1.8 dB, peaks over ceiling
+pass  6  VERIFY  -10.3 LUFS · peak -1.3 dBTP · balance 74% · crest 12.3 dB
+pass  7  OBSERVE -10.3 LUFS · peak -1.3 dBTP · balance 74% · crest 12.3 dB
+pass  7  DECIDE  limiter, push +1.3 dB toward -9 LUFS
+pass  7  VERIFY   -7.0 LUFS · peak  1.9 dBTP · balance 73% · crest 10.5 dB
+pass  8  OBSERVE  -7.0 LUFS · peak  1.9 dBTP · balance 73% · crest 10.5 dB
+pass  8  DECIDE  trim -3.2 dB, peaks over ceiling
+pass  8  VERIFY  -10.2 LUFS · peak -1.3 dBTP · balance 73% · crest 10.5 dB
+pass  9  OBSERVE -10.2 LUFS · peak -1.3 dBTP · balance 73% · crest 10.5 dB
+pass  9  DECIDE  limiter, push +1.2 dB toward -9 LUFS
+pass  9  VERIFY   -6.5 LUFS · peak  2.0 dBTP · balance 73% · crest 10.1 dB
+pass 10  OBSERVE  -6.5 LUFS · peak  2.0 dBTP · balance 73% · crest 10.1 dB
+pass 10  DECIDE  trim -3.3 dB, peaks over ceiling
+pass 10  VERIFY   -9.8 LUFS · peak -1.3 dBTP · balance 73% · crest 10.1 dB
+pass 11  OBSERVE  -9.8 LUFS · peak -1.3 dBTP · balance 73% · crest 10.1 dB
+pass 11  DECIDE  limiter, push +0.8 dB toward -9 LUFS
+pass 11  VERIFY   -6.5 LUFS · peak  1.8 dBTP · balance 73% · crest 9.8 dB
+pass 12  OBSERVE  -6.5 LUFS · peak  1.8 dBTP · balance 73% · crest 9.8 dB
+pass 12  DECIDE  trim -3.1 dB, peaks over ceiling
+pass 12  VERIFY   -9.7 LUFS · peak -1.3 dBTP · balance 73% · crest 9.8 dB
+pass 13  OBSERVE  -9.7 LUFS · peak -1.3 dBTP · balance 73% · crest 9.8 dB
+pass 13  DECIDE  limiter, push +0.7 dB toward -9 LUFS
+pass 13  VERIFY   -6.5 LUFS · peak  1.5 dBTP · balance 73% · crest 9.4 dB
+pass 14  OBSERVE  -6.5 LUFS · peak  1.5 dBTP · balance 73% · crest 9.4 dB
+pass 14  DECIDE  trim -2.8 dB, peaks over ceiling
+pass 14  VERIFY   -9.3 LUFS · peak -1.3 dBTP · balance 73% · crest 9.4 dB
+pass 15  OBSERVE  -9.3 LUFS · peak -1.3 dBTP · balance 73% · crest 9.4 dB
+pass 15  DECIDE  back off 1.0 dB, crest too low
+pass 15  VERIFY  -10.3 LUFS · peak -2.3 dBTP · balance 73% · crest 9.4 dB
+──────────────────────────────────────────────────────────────────────────────
+✗ HALTED at max_passes (16) · -9 LUFS unreachable without audible distortion
+  stuck at -10.3 LUFS, crest 9.4 dB (< 11 dB floor); constraints conflict, the loop refused to trade quality forever.
