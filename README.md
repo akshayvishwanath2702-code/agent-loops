@@ -4,7 +4,7 @@
 
 > ▶ **[Open the live, interactive version](https://akshayvishwanath2702-code.github.io/agent-loops/)** — step through the anatomy and run the auto-mastering loop yourself.
 
-![Stop prompting, start building loops](./figures/fig1-cover.png)
+![The auto-mastering loop converging in the terminal](./figures/sim-terminal.gif)
 
 ---
 
@@ -16,15 +16,19 @@ A loop inverts that cost structure. You specify a **goal**, hand the model a set
 
 > **The leverage was never in a cleverer prompt. It is in the loop you build around an ordinary one.**
 
-The difference is concrete. Watch a single number across the three eras: how many times a human has to touch the work to move it forward.
+Three eras, one variable: how many times a human has to touch the work to move it forward.
 
-![Prompt vs Chat vs Loop: where the human sits](./figures/fig2-eras.png)
+- **Prompt:** you assemble context, read output, decide the next step. `1` human touch per unit of work.
+- **Chat:** you steer across turns, but every observation still routes through you. `N` touches.
+- **Loop:** define goal, tools, verifier once, then step out. `~0` touches. This is where leverage compounds.
 
 ---
 
 ## Anatomy of a loop. Six parts, and one is the whole game.
 
-Strip away the framework branding and every agent loop is the same short program. A goal goes in, and the loop repeats a fixed cycle until a terminal condition fires.
+Strip away the framework branding and every agent loop is the same short program. A goal goes in, and the loop repeats a fixed cycle until a terminal condition fires: observe ground truth, check the terminal gate, decide the next action, act on the world, remember, repeat.
+
+![run_loop.py](./figures/term-code.png)
 
 ```python
 def run_loop(goal, tools, verify, max_steps=25, budget=200_000):
@@ -36,7 +40,7 @@ def run_loop(goal, tools, verify, max_steps=25, budget=200_000):
         if ctx.tokens > budget:        #    guardrail: cost
             return Halted("budget")
         plan  = model(ctx, obs, tools) # 3. DECIDE next action
-        result= execute(plan.call)     # 4. ACT    touch the world
+        result = execute(plan.call)    # 4. ACT    touch the world
         ctx   = ctx.append(obs, plan, result)  # 5. REMEMBER
     return Halted("max_steps")         # a loop must be able to give up
 ```
@@ -49,21 +53,19 @@ Notice what the model is not. It is not the loop. It is one call inside it, the 
 
 ## Worked example: the auto-mastering loop inside Songcraft.
 
-Here is a real one. [Songcraft](https://github.com/akshayvishwanath2702-code) is an AI music platform I am building, and one part of it masters a finished track to release spec without a human ever touching a fader. That piece is a loop, not a prompt.
+Here is a real one. Songcraft is an AI music platform I am building, and one part of it masters a finished track to release spec without a human ever touching a fader. That piece is a loop, not a prompt.
 
 - **Goal:** hit target loudness and tonal balance (`-14 LUFS`, true peak `<= -1 dBTP`).
 - **Tools:** EQ, multiband compression, a limiter, de-essing.
-- **Verifier:** a set of audio measurements. Integrated loudness in LUFS, true peak in dBTP, and spectral balance against a target curve. You cannot argue with a loudness meter. A track is at target, or it is not.
-
-![The auto-mastering loop diagram](./figures/fig4-songcraft.png)
+- **Verifier:** a set of audio measurements. Integrated loudness in LUFS, true peak in dBTP, spectral balance against a target curve. You cannot argue with a loudness meter. A track is at target, or it is not.
 
 Run it and it converges, because the verifier is trustworthy.
 
-![The loop converges](./figures/fig5-converged.png)
+![The loop converges to -14 LUFS](./figures/term-run.png)
 
 Now point it at an aggressive loudness target the material cannot hit cleanly (`-9 LUFS`) and the same loop fights itself. Every gain boost pushes true peak over the ceiling, the limiter clamps harder, the balance degrades, and it never settles. `max_passes` is what ends the run. That failure is the entire argument for terminal conditions, made visible.
 
-![Impossible target: the loop halts](./figures/fig6-halt.png)
+![Impossible target: the loop halts at max_passes](./figures/term-halt.png)
 
 > ▶ **[Run both scenarios yourself in the live version.](https://akshayvishwanath2702-code.github.io/agent-loops/)**
 
@@ -72,8 +74,6 @@ Now point it at an aggressive loudness target the material cannot hit cleanly (`
 ## Where the engineering actually lives.
 
 Wrapping a `while` loop around a model call is a weekend demo. Making it survive contact with reality is the job. These six are where loops die in production, and not one of them is a prompt problem.
-
-![The six hard parts](./figures/fig7-hardparts.png)
 
 1. **Termination.** A goal you cannot verify is a goal that never ends. Bound everything: `max_steps`, wall clock, token budget, and a no-progress counter that halts when the last `N` steps changed nothing.
 2. **Verification.** The model asserting "done" is not evidence. Wire the check to something unforgeable: a test runner, a type checker, a loudness meter, a schema. Cheap, deterministic, adversarial-proof, in that order.
@@ -109,4 +109,4 @@ Prompts got you a collaborator. Loops get you leverage.
 
 ---
 
-<sub>Written by Akshay Vishwanath. The diagrams and the loop simulator in this repo are all live and interactive at the [GitHub Pages site](https://akshayvishwanath2702-code.github.io/agent-loops/). If this was useful, a star or a repost is the best compliment.</sub>
+<sub>Written by Akshay Vishwanath. The diagrams and the loop simulator are live and interactive at the [GitHub Pages site](https://akshayvishwanath2702-code.github.io/agent-loops/). If this was useful, a star or a repost is the best compliment.</sub>

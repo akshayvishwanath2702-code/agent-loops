@@ -1,4 +1,6 @@
 figures/frames/
+figures/tframes/
 figures/list.txt
 figures/_smoke*
+publishing/
 .DS_Store

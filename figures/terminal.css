@@ -1,0 +1,54 @@
+/* Ghostty-style terminal screenshots · Tokyo Night theme · Meslo Nerd Font */
+:root{
+  --bg:#1a1b26; --bg-dark:#16161e; --fg:#c0caf5; --dim:#565f89;
+  --red:#f7768e; --grn:#9ece6a; --yel:#e0af68; --blu:#7aa2f7; --mag:#bb9af7; --cyn:#7dcfff; --white:#a9b1d6; --org:#ff9e64;
+  --line:#2a2e3f;
+  --mono:"MesloLGL Nerd Font Mono","MesloLGLDZ Nerd Font Mono","MesloLGL Nerd Font","SFMono-Regular","SF Mono",Menlo,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#0c0d13}
+body{
+  width:1200px;min-height:100px;padding:40px;display:flex;align-items:flex-start;justify-content:center;
+  background:radial-gradient(1200px 700px at 30% -10%,#171a26 0%,#0c0d13 60%,#090a0f 100%);
+  font-family:var(--mono);
+}
+.win{
+  width:1120px;background:var(--bg);border:1px solid var(--line);border-radius:11px;overflow:hidden;
+  box-shadow:0 30px 80px rgba(0,0,0,.55),0 2px 0 rgba(255,255,255,.03) inset;
+}
+.titlebar{
+  height:40px;background:linear-gradient(180deg,#1e1f2b,#191a24);border-bottom:1px solid var(--line);
+  display:flex;align-items:center;padding:0 16px;position:relative;
+}
+.lights{display:flex;gap:9px}
+.lights i{width:13px;height:13px;border-radius:50%;display:inline-block}
+.lights .r{background:#ff5f57;box-shadow:0 0 0 .5px rgba(0,0,0,.2)}
+.lights .y{background:#febc2e}
+.lights .g{background:#28c840}
+.title{position:absolute;left:0;right:0;text-align:center;font-size:13px;color:var(--dim);letter-spacing:.02em;pointer-events:none}
+.title b{color:var(--white);font-weight:400}
+.term{padding:22px 24px 26px;font-size:16px;line-height:1.62;color:var(--fg);white-space:pre-wrap;word-break:break-word}
+.term .row{display:block}
+/* ansi-ish helpers */
+.red{color:var(--red)}.grn{color:var(--grn)}.yel{color:var(--yel)}.blu{color:var(--blu)}
+.mag{color:var(--mag)}.cyn{color:var(--cyn)}.dim{color:var(--dim)}.wht{color:var(--white)}.fg{color:var(--fg)}
+.b{font-weight:700}
+/* prompt bits */
+.p-dir{color:var(--blu);font-weight:700}
+.p-on{color:var(--dim)}
+.p-branch{color:var(--mag)}
+.p-dirty{color:var(--yel)}
+.p-caret{color:var(--grn);font-weight:700}
+.p-caret-err{color:var(--red);font-weight:700}
+.cursor{display:inline-block;width:9px;height:18px;background:var(--fg);vertical-align:-3px;opacity:.9}
+.cmd{color:var(--fg)}
+.flag{color:var(--yel)}
+.org{color:var(--org)}
+/* bat gutter */
+.gutter{color:var(--dim)}
+.ln{color:#3b4261}
+.kw{color:var(--mag)}
+.fn{color:var(--blu)}
+.str{color:var(--grn)}
+.num{color:var(--org)}
+.cmt{color:var(--dim);font-style:italic}
