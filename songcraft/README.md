@@ -54,7 +54,16 @@ python master_loop.py --in samples/guitar_mix.wav --target -9   # impossible -> 
 | `samples/` | the two input mixes |
 | `out/*.run.txt` | captured console output of the two converging runs |
 | `out/guitar_mix.halt.txt` | the `-9 LUFS` run that correctly halts at `max_passes` |
-| `out/*_mastered_14.wav` | the mastered results, for A/B against the inputs |
+| `out/*_mastered_14.wav` | the mastered results (the "after"), for A/B against the `samples/` inputs |
+| `out/guitar_mix_mastered_9_halted.wav` | the over-limited `-9 LUFS` attempt, for reference |
+
+Before / after loudness (measured with `pyloudnorm`):
+
+| Track | Before (`samples/`) | After (`out/`) |
+|---|---|---|
+| vocal  | -27.2 LUFS (too quiet) | **-14.2 LUFS** |
+| guitar | -12.7 LUFS | **-14.0 LUFS** |
+| guitar @ -9 target | -12.7 LUFS | -10.3 LUFS (halted, never reached -9) |
 
 ## Why `-9 LUFS` halts (and should)
 
