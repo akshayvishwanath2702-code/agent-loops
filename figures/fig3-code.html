@@ -1,0 +1,41 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="poster.css">
+<style>
+  .stage.tall{gap:18px;height:900px}
+  .head{display:flex;flex-direction:column;gap:8px}
+  .win{background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,.4);flex:1;display:flex;flex-direction:column}
+  .titlebar{display:flex;align-items:center;gap:10px;padding:13px 18px;border-bottom:1px solid var(--line);background:var(--panel)}
+  .titlebar i{width:12px;height:12px;border-radius:50%;display:inline-block}
+  .r{background:#E8695B}.y{background:#F0A830}.g{background:#5FD08A}
+  .titlebar .fn{margin-left:10px;font-family:var(--mono);font-size:14px;color:var(--faint)}
+  pre{margin:0;padding:22px 30px;font-family:var(--mono);font-size:18px;line-height:1.72;overflow:hidden}
+  .kw{color:var(--teal);font-weight:600}.fnn{color:var(--amber-ink)}.cmt{color:var(--faint)}.str{color:var(--green)}.hl{background:color-mix(in oklab,var(--amber) 16%,transparent);display:block;margin:0 -30px;padding:0 30px}
+  .cap{font-family:var(--serif);font-size:19px;color:var(--muted);line-height:1.4;max-width:64ch}
+  .cap b{color:var(--amber);font-family:var(--mono);font-size:16px}
+</style></head>
+<body>
+<div class="stage tall">
+  <div class="brandbar"></div>
+  <div class="head">
+    <div class="eyebrow">Fig.3 · anatomy</div>
+    <h2 class="fig">Every agent loop is the same short program.</h2>
+  </div>
+  <div class="win">
+    <div class="titlebar"><i class="r"></i><i class="y"></i><i class="g"></i><span class="fn">run_loop.py</span></div>
+<pre><span class="kw">def</span> <span class="fnn">run_loop</span>(goal, tools, verify, max_steps=<span class="str">25</span>, budget=<span class="str">200_000</span>):
+    ctx = <span class="fnn">Context</span>(goal)                <span class="cmt"># goal + growing memory</span>
+    <span class="kw">for</span> step <span class="kw">in</span> <span class="fnn">range</span>(max_steps):        <span class="cmt"># hard iteration ceiling</span>
+<span class="hl">        obs   = <span class="fnn">verify</span>(ctx)             <span class="cmt"># 1. OBSERVE ground truth</span></span>
+        <span class="kw">if</span> obs.satisfied:            <span class="cmt"># 2. GATE   terminal check</span>
+            <span class="kw">return</span> <span class="fnn">Done</span>(step, ctx)
+        <span class="kw">if</span> ctx.tokens &gt; budget:       <span class="cmt">#    guardrail: cost</span>
+            <span class="kw">return</span> <span class="fnn">Halted</span>(<span class="str">"budget"</span>)
+        plan  = <span class="fnn">model</span>(ctx, obs, tools)   <span class="cmt"># 3. DECIDE next action</span>
+        result= <span class="fnn">execute</span>(plan.call)      <span class="cmt"># 4. ACT    touch the world</span>
+        ctx   = ctx.<span class="fnn">append</span>(obs, plan, result)  <span class="cmt"># 5. REMEMBER</span>
+    <span class="kw">return</span> <span class="fnn">Halted</span>(<span class="str">"max_steps"</span>)       <span class="cmt"># a loop must be able to give up</span></pre>
+  </div>
+  <div class="cap"><b>The verifier is the whole game.</b> The model is one call inside the loop, the DECIDE step. Observation, the gate, the budget guard, and memory are ordinary code you own.</div>
+  <div class="footmark">Stop prompting, start building loops</div>
+  <div class="pagemark">03 / 07</div>
+</div>
+</body></html>

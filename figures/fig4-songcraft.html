@@ -1,0 +1,68 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="poster.css">
+<style>
+  .stage{gap:20px}
+  .head{display:flex;flex-direction:column;gap:8px}
+  .body{display:grid;grid-template-columns:1fr 1.15fr;gap:26px;flex:1;align-items:center}
+  .specs{display:flex;flex-direction:column;gap:12px}
+  .spec{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--amber);border-radius:10px;padding:13px 16px}
+  .spec .k{font-family:var(--mono);font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--amber);margin-bottom:3px}
+  .spec.v{border-left-color:var(--teal)}.spec.v .k{color:var(--teal)}
+  .spec .val{font-family:var(--serif);font-size:16.5px;color:var(--text);line-height:1.35}
+  .spec .val .mono{color:var(--muted);font-size:14px}
+  svg{width:100%;height:auto}
+  .diagcap{position:absolute;bottom:56px;left:60px;right:60px;text-align:center;font-family:var(--mono);font-size:14px;color:var(--faint)}
+</style></head>
+<body>
+<div class="stage">
+  <div class="brandbar"></div>
+  <div class="head">
+    <div class="eyebrow">Fig.4 · worked example</div>
+    <h2 class="fig">The auto-mastering loop inside Songcraft.</h2>
+  </div>
+  <div class="body">
+    <div class="specs">
+      <div class="spec"><div class="k">Goal</div><div class="val">Hit release spec: <span class="mono">−14 LUFS</span>, true peak <span class="mono">≤ −1 dBTP</span></div></div>
+      <div class="spec"><div class="k">Tools</div><div class="val">EQ · multiband comp · limiter · de-ess</div></div>
+      <div class="spec v"><div class="k">Verifier</div><div class="val">Measure loudness, peak &amp; spectral balance. <span class="mono">You cannot argue with a meter.</span></div></div>
+      <div class="spec"><div class="k">Stop</div><div class="val">In tolerance, or <span class="mono">max_passes</span> reached</div></div>
+    </div>
+    <div class="diagram">
+      <svg viewBox="0 0 520 440" role="img" aria-label="A cyclic diagram: measure, decide, apply, looping back to measure, gated by a tolerance check to a mastered state.">
+        <defs>
+          <marker id="ah" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#96A2AE"/></marker>
+          <marker id="at" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#3FC9BC"/></marker>
+        </defs>
+        <!-- ring arrows -->
+        <path d="M170,90 A150,150 0 0 1 170,350" fill="none" stroke="#3FC9BC" stroke-width="2.5" marker-end="url(#at)"/>
+        <path d="M210,360 A150,150 0 0 1 300,120" fill="none" stroke="#F0A830" stroke-width="2.5" marker-end="url(#ah)" opacity="0"/>
+        <!-- nodes -->
+        <g font-family="ui-monospace,Menlo,monospace">
+          <!-- MEASURE (top) -->
+          <rect x="130" y="46" width="150" height="58" rx="12" fill="#141A21" stroke="#3FC9BC" stroke-width="2"/>
+          <text x="205" y="72" text-anchor="middle" fill="#3FC9BC" font-size="18" font-weight="700">MEASURE</text>
+          <text x="205" y="92" text-anchor="middle" fill="#68727E" font-size="12">verify( )</text>
+          <!-- DECIDE (right) -->
+          <rect x="300" y="190" width="150" height="58" rx="12" fill="#141A21" stroke="#F5BC57" stroke-width="2"/>
+          <text x="375" y="216" text-anchor="middle" fill="#F5BC57" font-size="18" font-weight="700">DECIDE</text>
+          <text x="375" y="236" text-anchor="middle" fill="#68727E" font-size="12">model( )</text>
+          <!-- APPLY (bottom) -->
+          <rect x="130" y="346" width="150" height="58" rx="12" fill="#141A21" stroke="#F0A830" stroke-width="2"/>
+          <text x="205" y="372" text-anchor="middle" fill="#F0A830" font-size="18" font-weight="700">APPLY</text>
+          <text x="205" y="392" text-anchor="middle" fill="#68727E" font-size="12">eq / comp / limit</text>
+          <!-- connecting arrows -->
+          <path d="M280,235 A150,150 0 0 1 250,360" fill="none" stroke="#F0A830" stroke-width="2.5" marker-end="url(#ah)"/>
+          <path d="M280,75 A150,150 0 0 1 375,185" fill="none" stroke="#F0A830" stroke-width="2.5" marker-end="url(#ah)"/>
+          <!-- gate + done -->
+          <text x="205" y="228" text-anchor="middle" fill="#96A2AE" font-size="13" font-weight="600">in tolerance?</text>
+          <path d="M300,225 L470,225 L470,300" fill="none" stroke="#5FD08A" stroke-width="2.5" stroke-dasharray="5 5" marker-end="url(#ah)"/>
+          <rect x="392" y="300" width="120" height="50" rx="12" fill="#141A21" stroke="#5FD08A" stroke-width="2"/>
+          <text x="452" y="331" text-anchor="middle" fill="#5FD08A" font-size="16" font-weight="700">MASTERED</text>
+        </g>
+      </svg>
+    </div>
+  </div>
+  <div class="diagcap">Measure → decide → apply → re-measure, until the meter says it is at spec.</div>
+  <div class="footmark">Stop prompting, start building loops</div>
+  <div class="pagemark">04 / 07</div>
+</div>
+</body></html>

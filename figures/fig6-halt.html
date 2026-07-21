@@ -1,0 +1,54 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="poster.css">
+<style>
+  .stage{gap:18px}
+  .head{display:flex;align-items:flex-end;justify-content:space-between;gap:20px}
+  .head .l{display:flex;flex-direction:column;gap:8px}
+  .chip{display:inline-flex;align-items:center;gap:9px;font-family:var(--mono);font-size:15px;font-weight:600;padding:9px 16px;border-radius:22px;border:1px solid color-mix(in oklab,var(--red) 45%,var(--line-strong));color:var(--red);background:var(--surface)}
+  .chip .led{width:9px;height:9px;border-radius:50%;background:var(--red)}
+  .grid{display:grid;grid-template-columns:1fr 1.2fr;gap:18px;align-items:start}
+  .gauges{display:flex;flex-direction:column;gap:13px}
+  .gauge{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:15px 16px}
+  .g-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:9px}
+  .g-lab{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+  .g-val{font-family:var(--mono);font-size:17px;font-weight:600;color:var(--text)}
+  .bar{height:10px;border-radius:6px;background:var(--panel-2);overflow:hidden}
+  .bar>i{display:block;height:100%;border-radius:6px}
+  .console{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 18px;font-family:var(--mono);font-size:14.5px;line-height:1.8;overflow:hidden}
+  .ln{display:flex;gap:12px;padding:1px 0}
+  .it{color:var(--faint);width:26px;text-align:right;flex:none}
+  .tag{flex:none;width:74px;font-weight:700}
+  .dec{color:var(--amber-ink)}.act{color:var(--amber)}.ver{color:var(--teal-glow)}.halt{color:var(--red)}
+  .msg{color:var(--text)}.bad{color:var(--red)}
+  .note{position:absolute;bottom:52px;left:60px;right:60px;text-align:center;font-family:var(--mono);font-size:14px;color:var(--faint)}
+  .note b{color:var(--red)}
+</style></head>
+<body>
+<div class="stage">
+  <div class="brandbar"></div>
+  <div class="head">
+    <div class="l"><div class="eyebrow">Fig.6 · why terminal conditions exist</div>
+    <h2 class="fig">Impossible target. The loop refuses to run forever.</h2></div>
+    <div class="chip"><span class="led"></span>halted · max_passes</div>
+  </div>
+  <div class="grid">
+    <div class="gauges">
+      <div class="gauge"><div class="g-top"><span class="g-lab">Integrated loudness</span><span class="g-val">−10.6 LUFS</span></div><div class="bar"><i style="width:70%;background:var(--teal)"></i></div><div style="font-family:var(--mono);font-size:11px;color:var(--faint);margin-top:6px">chasing −9, never arrives</div></div>
+      <div class="gauge"><div class="g-top"><span class="g-lab">True peak headroom</span><span class="g-val" style="color:var(--red)">+0.3 dBTP</span></div><div class="bar"><i style="width:40%;background:var(--red)"></i></div><div style="font-family:var(--mono);font-size:11px;color:var(--red);margin-top:6px">clipping</div></div>
+      <div class="gauge"><div class="g-top"><span class="g-lab">Tonal balance match</span><span class="g-val">82%</span></div><div class="bar"><i style="width:82%;background:var(--green)"></i></div><div style="font-family:var(--mono);font-size:11px;color:var(--faint);margin-top:6px">oscillating 82–86%</div></div>
+      <div class="gauge"><div class="g-top"><span class="g-lab">Pass</span><span class="g-val" style="color:var(--red)">12 / 12</span></div><div class="bar"><i style="width:100%;background:var(--red)"></i></div></div>
+    </div>
+    <div class="console">
+      <div class="ln"><span class="it">09</span><span class="tag dec">DECIDE</span><span class="msg">still 1.4 LU under −9 · push harder</span></div>
+      <div class="ln"><span class="it">09</span><span class="tag act">ACT</span><span class="msg">limiter +3.0 dB (attempt 8)</span></div>
+      <div class="ln"><span class="it">09</span><span class="tag ver">VERIFY</span><span class="msg">−10.6 LUFS, <span class="bad">peak clips</span>, THD up, 82%</span></div>
+      <div class="ln"><span class="it">10</span><span class="tag dec">DECIDE</span><span class="msg">2.1 LU under · push harder</span></div>
+      <div class="ln"><span class="it">10</span><span class="tag act">ACT</span><span class="msg">limiter +3.1 dB (attempt 9)</span></div>
+      <div class="ln"><span class="it">10</span><span class="tag ver">VERIFY</span><span class="msg">−11.0 LUFS, <span class="bad">+0.3 dBTP</span>, 84%</span></div>
+      <div class="ln"><span class="it">11</span><span class="tag ver">VERIFY</span><span class="msg">−10.5 LUFS, <span class="bad">still clipping</span>, 83%</span></div>
+      <div class="ln"><span class="it">12</span><span class="tag halt">HALT</span><span class="msg"><span class="bad">max_passes</span> · −9 unreachable cleanly</span></div>
+    </div>
+  </div>
+  <div class="note"><b>Constraints conflict</b>, so the loop correctly refused to trade quality forever. Design loops to fail loudly and bounded.</div>
+  <div class="pagemark">06 / 07</div>
+</div>
+</body></html>
